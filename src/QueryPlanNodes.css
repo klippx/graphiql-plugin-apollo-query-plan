@@ -1,0 +1,202 @@
+/* ─── Card shell ──────────────────────────────────────────────────────────── */
+
+.qp-card {
+  box-sizing: border-box;
+  border: 1px solid var(--qp-border-color);
+  border-radius: var(--qp-card-radius);
+  background: var(--qp-surface-card);
+  box-shadow: var(--qp-card-shadow);
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--qp-text);
+}
+
+.qp-card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Tinted card body — used by Fetch nodes; --service-hue set on .qp-card parent */
+.qp-tinted {
+  background: hsl(var(--service-hue) 60% 95%);
+}
+
+[data-color-mode="dark"] .qp-tinted {
+  background: hsl(var(--service-hue) 30% 16%);
+}
+
+.qp-accent-strip {
+  height: 4px;
+}
+
+/* Ghost deck layers sit behind the main card for batch fetches */
+.qp-ghost-card {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--qp-card-radius);
+  border: 1px solid var(--qp-border-color);
+  background: hsl(var(--service-hue) 60% 95%);
+  box-shadow: var(--qp-card-shadow);
+}
+
+[data-color-mode="dark"] .qp-ghost-card {
+  background: hsl(var(--service-hue) 30% 16%);
+}
+
+.qp-ghost-card-back {
+  transform: translate(14px, 14px);
+  z-index: -2;
+  opacity: 0.4;
+}
+
+.qp-ghost-card-mid {
+  transform: translate(7px, 7px);
+  z-index: -1;
+  opacity: 0.7;
+}
+
+/* ─── Handle dots ─────────────────────────────────────────────────────────── */
+
+.qp-handle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--qp-handle);
+  border: 2px solid var(--qp-surface-card);
+}
+
+/* ─── Header row ──────────────────────────────────────────────────────────── */
+
+.qp-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Badges / pills ──────────────────────────────────────────────────────── */
+
+.qp-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--qp-pill-radius);
+  background: var(--qp-surface-badge);
+  color: var(--qp-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Variable usage badge — smaller, no uppercase, no inline style needed */
+.qp-var-badge {
+  font-size: 10px;
+  text-transform: none;
+}
+
+/* Field pill — uses .qp-badge as base; --field-hue set on the span itself */
+.qp-field-pill {
+  font-size: 10px;
+  text-transform: none;
+  background: hsl(var(--field-hue) 55% 88%);
+  color: hsl(var(--field-hue) 55% 28%);
+}
+
+[data-color-mode="dark"] .qp-field-pill {
+  background: hsl(var(--field-hue) 40% 22%);
+  color: hsl(var(--field-hue) 60% 75%);
+}
+
+/* Expanded field pill when showing sub-fields */
+.qp-field-pill-expanded {
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 4px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  max-width: none;
+}
+
+.qp-sub-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.qp-sub-pill {
+  background: rgba(0, 0, 0, 0.09);
+  color: var(--qp-text-secondary);
+  border-radius: var(--qp-pill-radius);
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.qp-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ─── Fetch node sections ─────────────────────────────────────────────────── */
+
+.qp-section {
+  padding: 8px 10px;
+}
+
+.qp-section-bordered {
+  border-bottom: 1px dashed var(--qp-border-color);
+}
+
+.qp-section-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--qp-text-subtle);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.qp-section-divider {
+  border-top: 1px dashed var(--qp-border-color);
+  margin: 0;
+}
+
+/* ─── Detail text ─────────────────────────────────────────────────────────── */
+
+.qp-detail-text {
+  color: var(--qp-text-muted);
+  line-height: 1.4;
+}
+
+/* ─── Operation block (syntax-highlighted query inside Fetch node) ────────── */
+
+.qp-operation-wrapper {
+  margin-top: 2px;
+  max-height: var(--qp-operation-max-height);
+  overflow-y: auto;
+  border-radius: 0 0 10px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  background: var(--qp-surface-card);
+}
+
+.qp-operation-fallback {
+  margin: 0;
+  padding: 8px 10px;
+  font-family: monospace;
+  color: var(--qp-text-secondary);
+  white-space: pre-wrap;
+}

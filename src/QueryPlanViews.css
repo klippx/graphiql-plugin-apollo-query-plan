@@ -1,0 +1,174 @@
+/* ─── Canvas container ────────────────────────────────────────────────────── */
+
+.qp-canvas {
+  width: 100%;
+  height: var(--qp-canvas-height);
+  border: 1px solid var(--qp-border-color);
+  border-radius: var(--qp-card-radius);
+  overflow: hidden;
+  background: var(--qp-surface);
+}
+
+.qp-diagram-loading {
+  height: var(--qp-canvas-height);
+  border: 1px solid var(--qp-border-color);
+  border-radius: var(--qp-card-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--qp-surface);
+  color: var(--qp-text-muted);
+}
+
+/* ─── Detail level panel (top-left controls) ──────────────────────────────── */
+
+.qp-panel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--qp-surface-card);
+  border: 1px solid var(--qp-border-color);
+  border-radius: 8px;
+  padding: 4px 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.qp-panel-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--qp-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.qp-panel-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--qp-border-color);
+  margin: 0 2px;
+}
+
+.qp-panel-button {
+  border: none;
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--qp-text-secondary);
+  transition: background 0.15s;
+}
+
+.qp-panel-button-active {
+  background: var(--qp-blue);
+  color: var(--qp-text-on-accent);
+}
+
+.qp-panel-button-query-active {
+  background: var(--qp-teal);
+  color: var(--qp-text-on-accent);
+}
+
+/* ─── Width multiplier slider ─────────────────────────────────────────────── */
+
+.qp-slider {
+  width: 64px;
+  cursor: pointer;
+  accent-color: var(--qp-blue);
+}
+
+.qp-slider-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--qp-text-secondary);
+  min-width: 24px;
+  text-align: right;
+}
+
+/* ─── Compact view ────────────────────────────────────────────────────────── */
+
+.qp-compact {
+  max-height: var(--qp-canvas-height);
+  overflow: auto;
+  border-radius: var(--qp-card-radius);
+  border: 1px solid var(--qp-border-color);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.qp-code-fallback {
+  margin: 0;
+  padding: 16px;
+  background: var(--qp-surface);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* ─── Raw (Monaco) view ───────────────────────────────────────────────────── */
+
+.qp-monaco-container {
+  height: var(--qp-canvas-height);
+  width: 100%;
+}
+
+/* ─── Fallback dialog (built-in, no renderPanel supplied) ─────────────────── */
+
+.qp-fallback-dialog {
+  width: min(90vw, 1000px);
+  max-height: 90vh;
+  border-radius: var(--qp-card-radius);
+  border: 1px solid var(--qp-border-color);
+  padding: 24px;
+  overflow: auto;
+  background: var(--qp-surface);
+  color: var(--qp-text);
+}
+
+.qp-fallback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.qp-fallback-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.qp-fallback-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--qp-text);
+  padding: 4px 8px;
+}
+
+.qp-fallback-tab-row {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--qp-border-color);
+  margin-bottom: 16px;
+}
+
+.qp-fallback-tab-button {
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--qp-text);
+}
+
+.qp-fallback-tab-button-active {
+  border-bottom-color: var(--qp-blue);
+  font-weight: 700;
+}

@@ -1,0 +1,79 @@
+{
+  "name": "graphiql-plugin-apollo-query-plan",
+  "version": "0.1.0",
+  "description": "Apollo Federation query plan visualiser for GraphiQL — React Flow diagram, compact, and raw views",
+  "keywords": [
+    "graphiql",
+    "graphql",
+    "apollo",
+    "federation",
+    "query-plan",
+    "react-flow"
+  ],
+  "author": "klippx",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klippx/graphiql-plugin-apollo-query-plan.git"
+  },
+  "homepage": "https://github.com/klippx/graphiql-plugin-apollo-query-plan#readme",
+  "bugs": {
+    "url": "https://github.com/klippx/graphiql-plugin-apollo-query-plan/issues"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./style.css": "./dist/index.css"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
+    "format": "biome format --write src/",
+    "ci": "pnpm typecheck && pnpm test && pnpm lint"
+  },
+  "peerDependencies": {
+    "@graphiql/react": ">=0.20.0",
+    "@graphiql/toolkit": ">=0.9.0",
+    "graphql": ">=16.0.0",
+    "prettier": ">=3.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "prettier": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.10.2",
+    "shiki": "^4.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^6.0.0",
+    "vitest": "^3.0.0"
+  },
+  "packageManager": "pnpm@11.5.0"
+}

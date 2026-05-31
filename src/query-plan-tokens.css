@@ -1,0 +1,52 @@
+/* ─── Query plan design tokens ─────────────────────────────────────────────── */
+:root {
+  /* Structure */
+  --qp-border-color: #d7dce3;
+  --qp-card-radius: 12px;
+  --qp-card-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --qp-pill-radius: 999px;
+  --qp-canvas-height: 68vh;
+
+  /* Text */
+  --qp-text: #111827;
+  --qp-text-secondary: #374151;
+  --qp-text-muted: #4b5563;
+  --qp-text-subtle: #6b7280;
+
+  /* Surfaces */
+  --qp-surface: #f8fafc;
+  --qp-surface-card: #ffffff;
+  --qp-surface-badge: #eff2f6;
+
+  /* Interactive */
+  --qp-blue: #1d4ed8;
+  --qp-teal: #0d9488;
+  --qp-handle: #64748b;
+  --qp-text-on-accent: #ffffff;
+
+  /* Node internals */
+  --qp-operation-max-height: 220px;
+}
+
+[data-color-mode="dark"] {
+  /* Structure */
+  --qp-border-color: #3c3c3c;
+  --qp-card-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+
+  /* Text */
+  --qp-text: #f0f0f0;
+  --qp-text-secondary: #c9c9c9;
+  --qp-text-muted: #a0a0a0;
+  --qp-text-subtle: #888;
+
+  /* Surfaces */
+  --qp-surface: #1a1a1a;
+  --qp-surface-card: #232323;
+  --qp-surface-badge: #2e2e2e;
+
+  /* Interactive — keep blue/teal readable on dark bg */
+  --qp-blue: #4f86f7;
+  --qp-teal: #2dd4bf;
+  --qp-handle: #a0aec0;
+  --qp-text-on-accent: #ffffff;
+}

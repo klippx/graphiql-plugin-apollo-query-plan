@@ -108,6 +108,43 @@ export type InlineFragmentSelection = {
 export type SelectionNode = FieldSelection | InlineFragmentSelection
 
 // ---------------------------------------------------------------------------
+// Apollo JS-gateway experimental query plan types
+// (these are simpler than the router's format and lack router-specific fields)
+// ---------------------------------------------------------------------------
+
+/**
+ * Simpler Fetch node used by the JS gateway experimental query plan.
+ * Omits router-specific fields (id, rewrites, schemaAwareHash, authorization).
+ */
+export type ExperimentalFetchNode = {
+  kind: 'Fetch'
+  serviceName: string
+  /** The sub-operation sent to this service */
+  operation: string
+  operationName: string
+  operationKind: 'query' | 'mutation' | 'subscription'
+  variableUsages: string[]
+  requires?: SelectionNode[]
+}
+
+/** Union of node types that can appear in a JS gateway experimental query plan. */
+export type ExperimentalQueryPlanNode =
+  | { kind: 'Sequence'; nodes: ExperimentalQueryPlanNode[] }
+  | { kind: 'Parallel'; nodes: ExperimentalQueryPlanNode[] }
+  | ExperimentalFetchNode
+  | { kind: 'Flatten'; path: string[]; node: ExperimentalQueryPlanNode }
+
+/**
+ * JS gateway experimental query plan (`extensions.__queryPlanExperimental`).
+ * Unlike the router format, the root object is the plan node itself — there is
+ * no `{ object, text }` wrapper.
+ */
+export type ApolloQueryPlanExperimental = {
+  kind: 'QueryPlan'
+  node: ExperimentalQueryPlanNode
+}
+
+// ---------------------------------------------------------------------------
 // Top-level response shape
 // ---------------------------------------------------------------------------
 
@@ -124,7 +161,10 @@ export type GraphQLResponseWithQueryPlan = {
   data?: unknown
   errors?: Array<{ message: string; locations?: unknown; path?: unknown }>
   extensions?: {
+    // Router
     apolloQueryPlan?: ApolloQueryPlan
+    // JS Gateway (experimental)
+    __queryPlanExperimental?: ApolloQueryPlanExperimental
     [key: string]: unknown
   }
 }

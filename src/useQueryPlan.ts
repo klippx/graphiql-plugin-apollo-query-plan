@@ -1,6 +1,7 @@
 import { useGraphiQL } from '@graphiql/react'
 import type { SyncExecutionResult } from '@graphiql/toolkit'
 import React from 'react'
+import { convertExperimentalToApolloPlan } from './convertExperimentalToApolloPlan'
 import type {
   ApolloQueryPlan,
   GraphQLResponseWithQueryPlan,
@@ -78,18 +79,27 @@ export const useQueryPlan = ({
           { query, variables },
           {
             headers: {
+              // Router:
               'apollo-expose-query-plan': 'dry-run',
+              // JS Gateway:
+              'apollo-query-plan-experimental': 'true',
+              'apollo-query-plan-experimental-format': 'internal',
             },
           },
         )
         const result = await unwrapFetcherResult(raw)
-        const plan = result?.extensions?.apolloQueryPlan
+        let plan = result?.extensions?.apolloQueryPlan
         if (!plan) {
-          onError(
-            'No query plan returned',
-            'The Apollo Router did not return a query plan. Ensure the router has the query plan extension enabled.',
-          )
-          return null
+          const experimentalPlan = result?.extensions?.__queryPlanExperimental
+          if (experimentalPlan) {
+            plan = convertExperimentalToApolloPlan(experimentalPlan)
+          } else {
+            onError(
+              'No query plan returned',
+              'This endpoint does not expose query plans. Try staging or stagingPreview.',
+            )
+            return null
+          }
         }
         return plan
       } catch (error: unknown) {

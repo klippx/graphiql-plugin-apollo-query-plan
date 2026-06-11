@@ -48,7 +48,10 @@
     "lint": "biome check src/",
     "lint:fix": "biome check --write src/",
     "format": "biome format --write src/",
-    "ci": "pnpm typecheck && pnpm test && pnpm lint"
+    "ci": "pnpm typecheck && pnpm test && pnpm lint",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
   "peerDependencies": {
     "@graphiql/react": ">=0.20.0",
@@ -69,6 +72,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",
+    "@changesets/cli": "^2.31.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "tsup": "^8.0.0",

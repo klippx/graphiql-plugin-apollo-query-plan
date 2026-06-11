@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "description": "Apollo Federation query plan visualiser for GraphiQL — React Flow diagram, compact, and raw views",
   "keywords": [
-    "graphiql",
-    "graphql",
     "apollo",
     "federation",
+    "gateway",
+    "graphiql",
+    "graphql",
+    "plan",
     "query-plan",
-    "react-flow"
+    "query",
+    "router"
   ],
   "author": "klippx",
   "license": "MIT",

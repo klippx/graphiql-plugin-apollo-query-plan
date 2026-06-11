@@ -1,8 +1,15 @@
 # graphiql-plugin-apollo-query-plan
 
-Apollo Federation query plan visualiser for GraphiQL — renders the router's execution strategy as an interactive React Flow diagram, a syntax-highlighted compact view, and a raw JSON editor.
+Apollo Federation query plan visualiser for GraphiQL. Visualizes the Apollo Router (or Apollo Gateway) execution strategy as an interactive React Flow diagram, a syntax-highlighted compact view, and a raw JSON editor.
 
 ![Query plan diagram](.github/assets/screenshot.png)
+
+The package works by sending along headers as described [here](https://www.apollographql.com/docs/graphos/schema-design/federated-schemas/reference/query-plans#viewing-query-plans) and then inspecting the response data in `extensions`.
+
+- For standalone Apollo Router deployments [these headers](https://www.apollographql.com/docs/graphos/schema-design/federated-schemas/reference/query-plans#outputting-query-plans-with-headers) are sent, and the relevant data is found in `extensions.apolloQueryPlan`.
+- For standalone Apollo Gateway deployments [these headers](https://www.apollographql.com/docs/graphos/schema-design/federated-schemas/reference/query-plans#legacy-header-options) are sent, and the relevant data is found in `extensions.__queryPlanExperimental`.
+
+This package is primarily built for Apollo Router but it works for Apollo Gateway too, due to a compatibility layer which converts the gateway response format into the router response format before processing and visualizing the response.
 
 ## Install
 
@@ -17,7 +24,7 @@ You must also import the stylesheet once in your app:
 import "graphiql-plugin-apollo-query-plan/style.css";
 ```
 
-> **Import location matters in SSR frameworks.** In Next.js (App Router or Pages Router), CSS imports are only processed when they appear in a layout, page, or `_app` file — not in arbitrary component files. Import the stylesheet in your root layout or the top-level component that owns your `<GraphiQL>` instance, not inside the component that renders the button.
+> **Import location matters in SSR frameworks.** In Next.js (App Router or Pages Router), CSS imports are only processed when they appear in a layout, page, or `_app` file, not in arbitrary component files. Import the stylesheet in your root layout or the top-level component that owns your `<GraphiQL>` instance, not inside the component that renders the button.
 
 > **Client-side only.** This is a GraphiQL plugin which supports system theme — all components must render in the browser. The light/dark mode detection reads `document.documentElement` and will return `'light'` during SSR. Wrap the components in a client boundary (e.g. Next.js `'use client'`) if your app uses server rendering.
 
@@ -25,7 +32,7 @@ import "graphiql-plugin-apollo-query-plan/style.css";
 
 ### Simple — built-in dialog
 
-Drop `QueryPlanReactFlowButton` into the GraphiQL toolbar. It reads the `fetcher`, `queryEditor`, and `variableEditor` directly from the GraphiQL store — no extra wiring needed.
+Drop `QueryPlanReactFlowButton` into the GraphiQL toolbar. It reads the `fetcher`, `queryEditor`, and `variableEditor` directly from the GraphiQL store.
 
 ```tsx
 import { GraphiQL } from "graphiql";
@@ -47,7 +54,7 @@ function MyGraphiQL() {
 }
 ```
 
-When clicked, the button fetches the query plan from the Apollo router's response extensions (`extensions.queryPlan`) and opens a built-in native `<dialog>` with three tabs: Diagram, Compact, and Raw.
+When the button is clicked, it sends the proper headers to your federated endpoint and reads the query plan from the response extensions, and finally opens a built-in native `<dialog>` with three tabs: Diagram, Compact, and Raw.
 
 ---
 
@@ -113,7 +120,7 @@ React.useEffect(() => {
 }, []);
 ```
 
-You can also use the view components without the button. Since they're always rendered from within `renderPanel` (called inside the GraphiQL toolbar), the GraphiQL context is always present — no extra wiring needed:
+You can also use the view components without the button. Since they're always rendered from within `renderPanel` (called inside the GraphiQL toolbar), the GraphiQL context is always present:
 
 - `QueryPlanDiagram` uses `useGraphiQL` to read the active schema for resolving `Flatten` path type labels.
 - `QueryPlanRaw` uses `useMonaco` to reuse the Monaco instance already loaded by GraphiQL.
@@ -136,10 +143,14 @@ function QueryPlanViewer({ plan }: { plan: ApolloQueryPlan | null }) {
 
 ### Advanced — custom operation formatter
 
-`QueryPlanDiagram` formats the GraphQL operations inside Fetch nodes using Prettier by default. Inject your own formatter to replace it — or pass a no-op to opt out entirely.
+`QueryPlanDiagram` formats the GraphQL operations inside Fetch nodes using Prettier by default. Inject your own formatter to replace it, or pass a no-op to opt out entirely.
+
+Prettier is an optional peer dependency, if you don't have it in your deployment runtime, a warning is emitted to the console.
+
+- Either ensure prettier is available, or pass a no-op to `formatOperation` in order to remove the warning.
 
 ```tsx
-// No-op — skip formatting, renders the raw operation string
+// No-op: skip formatting, renders the raw operation string
 <QueryPlanDiagram
   plan={plan}
   formatOperation={async (op) => op}
@@ -158,7 +169,7 @@ function QueryPlanViewer({ plan }: { plan: ApolloQueryPlan | null }) {
 
 ### Advanced — custom toolbar icon
 
-Replace the default graph-glyph icon with your own:
+Replace the default icon with your own:
 
 ```tsx
 import { QueryPlanReactFlowButton } from "graphiql-plugin-apollo-query-plan";

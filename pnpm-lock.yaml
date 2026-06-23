@@ -15,7 +15,7 @@ importers:
         specifier: '>=0.9.0'
         version: 0.12.0(graphql@16.14.0)
       '@xyflow/react':
-        specifier: ^12.10.2
+        specifier: 12.10.2
         version: 12.10.2(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       graphql:
         specifier: '>=16.0.0'
@@ -30,14 +30,14 @@ importers:
         specifier: '>=18.0.0'
         version: 19.2.6(react@19.2.6)
       shiki:
-        specifier: ^4.0.0
+        specifier: 4.1.0
         version: 4.1.0
     devDependencies:
       '@biomejs/biome':
-        specifier: ^2.4.16
+        specifier: 2.4.16
         version: 2.4.16
       '@changesets/cli':
-        specifier: ^2.31.0
+        specifier: 2.31.0
         version: 2.31.0
       '@types/react':
         specifier: ^19.0.0
@@ -46,13 +46,13 @@ importers:
         specifier: ^19.0.0
         version: 19.2.3(@types/react@19.2.15)
       tsup:
-        specifier: ^8.0.0
+        specifier: 8.5.1
         version: 8.5.1(postcss@8.5.15)(typescript@6.0.3)
       typescript:
-        specifier: ^6.0.0
+        specifier: 6.0.3
         version: 6.0.3
       vitest:
-        specifier: ^3.0.0
+        specifier: 3.2.4
         version: 3.2.4
 
 packages:

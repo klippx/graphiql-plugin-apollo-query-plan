@@ -1,5 +1,11 @@
 # graphiql-plugin-apollo-query-plan
 
+## 0.2.1
+
+### Patch Changes
+
+- 380afa3: Simplify QueryPlanNodes `resolvePathItemTypes`
+
 ## 0.2.0
 
 ### Minor Changes

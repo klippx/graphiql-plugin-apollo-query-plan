@@ -1,0 +1,37 @@
+name: Renovate
+
+on:
+  workflow_dispatch:
+    inputs:
+      log_level:
+        description: "Log level for Renovate, e.g., `info` (default), `debug`"
+        required: false
+        type: string
+      log_format:
+        description: "Log format for Renovate, e.g., `pretty` (default), `json`"
+        required: false
+        type: string
+  schedule:
+    - cron: "15 */6 * * *"
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@6d859fc95779be83a0335ca704879b47e5d79641 # v46.1.16
+        env:
+          RENOVATE_REPOSITORIES: klippx/graphiql-plugin-apollo-query-plan
+          RENOVATE_ALLOWED_COMMANDS: '["pnpm biome migrate --write"]'
+          LOG_LEVEL: ${{ inputs.log_level }}
+          LOG_FORMAT: ${{ inputs.log_format }}
+        with:
+          configurationFile: renovate.json
+          token: ${{ secrets.RENOVATE_PAT }}

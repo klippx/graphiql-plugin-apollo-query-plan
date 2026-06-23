@@ -1,6 +1,6 @@
 {
   "name": "graphiql-plugin-apollo-query-plan",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Apollo Federation query plan visualiser for GraphiQL — React Flow diagram, compact, and raw views",
   "keywords": [
     "apollo",

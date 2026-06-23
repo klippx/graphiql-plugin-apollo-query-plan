@@ -215,16 +215,23 @@ cd graphiql-plugin-apollo-query-plan
 pnpm install
 ```
 
+## Contribute
+
+Attach a release note to your PR: `pnpm changeset`.
+
 ## Release
 
-Build the package:
+For maintainers only:
+
+**Step 1 — trigger the release workflow**
+
+Go to **Actions → Release → Run workflow** on GitHub. It opens (or updates) a **"Version Packages"** pull request that bumps `package.json`, updates `CHANGELOG.md`, and removes the consumed changesets. Review and merge it.
+
+**Step 2 — publish locally**
+
+After merging, pull the latest `main` and publish. This builds the package, publishes to npm, creates the git tag, and pushes it.
 
 ```sh
-pnpm build
-```
-
-Publish:
-
-```sh
-pnpm publish --access public
+git checkout main && git pull
+pnpm release
 ```

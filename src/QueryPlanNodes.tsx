@@ -1,12 +1,7 @@
 import { useGraphiQL } from '@graphiql/react'
 import { Handle, type NodeProps, Position } from '@xyflow/react'
-import type { GraphQLSchema } from 'graphql'
-import {
-  isInterfaceType,
-  isListType,
-  isNonNullType,
-  isObjectType,
-} from 'graphql'
+import type { GraphQLField, GraphQLNamedType, GraphQLSchema } from 'graphql'
+import { getNamedType, isInterfaceType, isObjectType } from 'graphql'
 import {
   type CSSProperties,
   createContext,
@@ -41,28 +36,21 @@ const resolvePathItemTypes = (args: {
   const { schema, segments, aliases = new Map() } = args
   const itemTypes: string[] = []
   try {
-    let type = schema.getQueryType()
+    let type: GraphQLNamedType | null | undefined = schema.getQueryType()
     if (!type) return []
 
     for (const seg of segments) {
       if (seg === '@') {
-        let inner = isNonNullType(type) ? type.ofType : type
-        if (isListType(inner)) inner = inner.ofType
-        if (isNonNullType(inner)) inner = inner.ofType
-        const name = 'name' in inner ? (inner.name as string) : null
-        itemTypes.push(name ?? 'item')
-        // Continue walking from the unwrapped item type
-        type = inner as typeof type
+        itemTypes.push(type.name)
         continue
       }
       if (!isObjectType(type) && !isInterfaceType(type)) break
       // Resolve alias → actual field name if needed
       const fieldName = aliases.get(seg) ?? seg
-      const field = type.getFields()[fieldName]
+      const field: GraphQLField<unknown, unknown, unknown> | undefined =
+        type.getFields()[fieldName]
       if (!field) break
-      let ft = field.type
-      while (isNonNullType(ft) || isListType(ft)) ft = ft.ofType
-      type = ft as typeof type
+      type = getNamedType(field.type)
     }
   } catch {
     // Swallow — fall back to 'item' for remaining '@'s below

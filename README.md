@@ -235,3 +235,5 @@ After merging, pull the latest `main` and publish. This builds the package, publ
 git checkout main && git pull
 pnpm release
 ```
+
+Note, this step might need `pnpm login` (not `npm login`)

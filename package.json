@@ -54,7 +54,7 @@
     "ci": "pnpm typecheck && pnpm test && pnpm lint",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && pnpm changeset publish"
   },
   "peerDependencies": {
     "@graphiql/react": ">=0.20.0",

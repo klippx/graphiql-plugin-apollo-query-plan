@@ -1,11 +1,7 @@
 import { useGraphiQL } from '@graphiql/react'
 import { Handle, type NodeProps, Position } from '@xyflow/react'
 import type { GraphQLField, GraphQLNamedType, GraphQLSchema } from 'graphql'
-import {
-  getNamedType,
-  isInterfaceType,
-  isObjectType,
-} from 'graphql'
+import { getNamedType, isInterfaceType, isObjectType } from 'graphql'
 import {
   type CSSProperties,
   createContext,
@@ -51,7 +47,8 @@ const resolvePathItemTypes = (args: {
       if (!isObjectType(type) && !isInterfaceType(type)) break
       // Resolve alias → actual field name if needed
       const fieldName = aliases.get(seg) ?? seg
-      const field: GraphQLField<unknown, unknown, unknown> | undefined = type.getFields()[fieldName]
+      const field: GraphQLField<unknown, unknown, unknown> | undefined =
+        type.getFields()[fieldName]
       if (!field) break
       type = getNamedType(field.type)
     }

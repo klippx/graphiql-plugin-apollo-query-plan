@@ -33,5 +33,5 @@ jobs:
           LOG_LEVEL: ${{ inputs.log_level }}
           LOG_FORMAT: ${{ inputs.log_format }}
         with:
-          configurationFile: renovate.json
+          configurationFile: .github/renovate.json
           token: ${{ secrets.RENOVATE_PAT }}

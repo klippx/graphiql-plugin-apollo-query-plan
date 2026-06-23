@@ -9,7 +9,6 @@
   "postUpdateOptions": ["pnpmDedupe"],
   "platformAutomerge": true,
   "commitMessageSuffix": "`[skip cd]`",
-  "minimumReleaseAge": "3 days",
   "prCreation": "immediate",
   "internalChecksFilter": "strict",
   "packageRules": [
@@ -35,7 +34,6 @@
     },
     {
       "matchUpdateTypes": ["digest"],
-      "minimumReleaseAge": null,
       "automerge": true
     },
     {
@@ -57,8 +55,6 @@
     }
   ],
   "lockFileMaintenance": {
-    "enabled": true,
-    "minimumReleaseAge": null
-  },
-  "npmrcMerge": true
+    "enabled": true
+  }
 }

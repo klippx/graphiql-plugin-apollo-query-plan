@@ -1,0 +1,64 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "labels": ["dependencies", "renovate"],
+  "extends": ["config:best-practices", "config:js-app"],
+  "enabledManagers": ["github-actions", "npm", "mise"],
+  "prHourlyLimit": 20,
+  "prConcurrentLimit": 5,
+  "postUpdateOptions": ["pnpmDedupe"],
+  "platformAutomerge": true,
+  "commitMessageSuffix": "`[skip cd]`",
+  "minimumReleaseAge": "3 days",
+  "prCreation": "immediate",
+  "internalChecksFilter": "strict",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "commitMessageSuffix": null,
+      "automerge": false
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "commitMessageSuffix": "`[skip cd]`",
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["patch", "minor"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["pin"],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["digest"],
+      "minimumReleaseAge": null,
+      "automerge": true
+    },
+    {
+      "matchPackageNames": ["graphiql", "/^@graphiql//"],
+      "groupName": "GraphiQL",
+      "groupSlug": "graphiql",
+      "separateMinorPatch": false,
+      "separateMultipleMajor": false,
+      "labels": ["dependencies", "graphiql"],
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["@biomejs/biome"],
+      "postUpgradeTasks": {
+        "commands": ["pnpm biome migrate --write"],
+        "fileFilters": ["biome.jsonc"],
+        "executionMode": "update"
+      }
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "minimumReleaseAge": null
+  },
+  "npmrcMerge": true
+}

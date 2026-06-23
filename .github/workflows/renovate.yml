@@ -11,8 +11,6 @@ on:
         description: "Log format for Renovate, e.g., `pretty` (default), `json`"
         required: false
         type: string
-  schedule:
-    - cron: "15 */6 * * *"
 
 jobs:
   renovate:
@@ -29,7 +27,6 @@ jobs:
         uses: renovatebot/github-action@6d859fc95779be83a0335ca704879b47e5d79641 # v46.1.16
         env:
           RENOVATE_REPOSITORIES: klippx/graphiql-plugin-apollo-query-plan
-          RENOVATE_ALLOWED_COMMANDS: '["pnpm biome migrate --write"]'
           LOG_LEVEL: ${{ inputs.log_level }}
           LOG_FORMAT: ${{ inputs.log_format }}
         with:

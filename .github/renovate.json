@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "allowedCommands": ["pnpm biome migrate --write"],
   "labels": ["dependencies", "renovate"],
   "extends": ["config:best-practices", "config:js-app"],
   "enabledManagers": ["github-actions", "npm", "mise"],

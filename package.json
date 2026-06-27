@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@xyflow/react": "12.11.1",
-    "shiki": "4.1.0"
+    "shiki": "4.2.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.16",

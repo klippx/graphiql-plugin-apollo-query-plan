@@ -70,7 +70,7 @@
     }
   },
   "dependencies": {
-    "@xyflow/react": "12.11.3",
+    "@xyflow/react": "12.11.5",
     "shiki": "4.4.3"
   },
   "devDependencies": {
